@@ -29,7 +29,11 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "$(git rev-parse --show-toplevel)/.devcontainer/postcreate.sh"
+	"postStartCommand": "$(git rev-parse --show-toplevel)/.devcontainer/postcreate.sh",
+
+	// https://www.kenmuse.com/blog/avoiding-dubious-ownership-in-dev-containers/
+	"postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+
 
 	// Configure tool-specific properties.
 	// "customizations": {},
