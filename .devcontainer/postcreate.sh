@@ -2,3 +2,11 @@
 
 git config --global --add safe.directory "$(git rev-parse --show-toplevel)"
 git config --local --get include.path | grep -e ../.gitconfig || git config --local --add include.path ../.gitconfig
+
+pushd "$(git rev-parse --show-toplevel)" || exit 1
+if [ -f "Pipfile" ];then
+  pipenv install || echo no "Pipfile" file
+elif [ -f "requirements.txt" ];then 
+  pip3 install --break-system-packages --user -r requirements.txt || echo No "requirements.txt" file
+fi
+popd || exit 1 
